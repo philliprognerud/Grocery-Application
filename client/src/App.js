@@ -21,3 +21,9 @@ class App extends Component {
 }
 
 export default App;
+
+//  "proxy": {
+//      "/test": {
+//          "target": "http://localhost:9000/"
+//      }
+//  },
