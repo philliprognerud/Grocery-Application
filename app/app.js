@@ -1,12 +1,14 @@
 /*eslint-env node*/
 
-// PREVIEW URL
-// http://node29.codenvy.io:47458/
 
 var express = require('express');
 var app = express();
 
-app.get('/', function (req, res) {
+app.get('/api/phil', function (req, res) {
+  res.send('Pickle Rick');
+});
+
+app.get('/api/abe', function (req, res) {
   res.send('Pickle Rick');
 });
 

@@ -1,0 +1,2 @@
+REACT: http://node29.codenvy.io:49140/
+NODE: http://node29.codenvy.io:49139/
