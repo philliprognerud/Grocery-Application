@@ -1,4 +1,4 @@
-# web-nodejs-sample
+# Pickle Grocery App
 
 ExpressJS Sample Application
 
