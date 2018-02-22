@@ -4,10 +4,10 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <button class="ui primary button">
+                <button className="ui primary button">
                   Save
                 </button>
-                <button class="ui button">
+                <button className="ui button">
                   Discard
                 </button>
             </div>
