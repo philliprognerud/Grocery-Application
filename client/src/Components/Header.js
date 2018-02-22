@@ -4,16 +4,13 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <div class="ui selection dropdown">
-                  <input type="hidden" name="gender" />
-                  <i class="dropdown icon"></i>
-                  <div class="default text">Gender</div>
-                  <div class="menu">
-                    <div class="item" data-value="2">Abe</div>
-                    <div class="item" data-value="1">Male</div>
-                    <div class="item" data-value="0">Female</div>
+                <h2 className="ui icon header">
+                  <i className="settings icon"></i>
+                  <div className="content">
+                    Account Settings
+                    <div className="sub header">Manage your account settings and set e-mail preferences.</div>
                   </div>
-                </div>
+                </h2>
             </div>
         );
     }
