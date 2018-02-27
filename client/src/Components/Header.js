@@ -5,7 +5,7 @@ class Header extends Component {
         return (
             <div>
                 <button className="ui primary button">
-                  Save
+                  Save Button
                 </button>
                 <button className="ui button">
                   Discard
