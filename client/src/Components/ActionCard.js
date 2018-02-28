@@ -29,7 +29,8 @@ class ActionCard extends Component{
         
         )
         
-    }
-    
-    
+    }   
 }
+
+
+export default ActionCard
