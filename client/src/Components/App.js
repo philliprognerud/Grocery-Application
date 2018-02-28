@@ -13,6 +13,7 @@ const App = () => {
                     <Logo />
                     <Route exact path="/phil" component={Landing} />
                     <Route exact path="/shawn/*" component={MenuBar} />
+                    <Route exact path ="/dom/*"  omponent={ActionCard} />
                 </div>
             </BrowserRouter>
         </div>
