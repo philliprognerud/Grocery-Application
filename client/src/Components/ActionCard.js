@@ -4,12 +4,7 @@ class ActionCard extends Component {
     render() {
         return (
             <div>
-                <button className="ui primary button">
-                  Save
-                </button>
-                <button className="ui button">
-                  Discard
-                </button>
+                <h1> Hey </h1>
             </div>
         )
     }
