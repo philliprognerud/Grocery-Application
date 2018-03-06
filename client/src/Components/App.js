@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
-
+import ShoppingCart from './ShoppingCart';
 import Logo from './Logo'
 import MenuBar from './MenuBar'
 import ActionCard from './ActionCard'
@@ -14,6 +14,7 @@ const App = () => {
             <BrowserRouter>
                 <div>
                     <Logo />
+                    <ShoppingCart />
                     <Route exact path="/phil" component={Landing} />
                     <Route exact path="/shawn/*" component={MenuBar} />
                    <Route exact path ="/dom/*"  component={ActionCard} />
