@@ -7,6 +7,7 @@ import ShoppingCart from "./ShoppingCart";
 import Logo from "./Logo";
 import MenuBar from "./MenuBar";
 import ActionCard from "./ActionCard";
+import Login from "./Login";
 
 const App = () => {
   return (
@@ -15,7 +16,7 @@ const App = () => {
         <div>
           <Logo />
           <ShoppingCart />
-          <Route exact path="/phil" component={Landing} />
+          <Login />
           <Route exact path="/shawn/*" component={MenuBar} />
           <Route exact path="/dom/*" component={ActionCard} />
         </div>

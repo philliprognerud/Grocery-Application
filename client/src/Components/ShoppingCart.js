@@ -6,7 +6,7 @@ const cartStyle = {
   float: "right",
   maxWidth: "3.5em",
   display: "inline-block",
-  marginRight: "50px",
+  marginRight: "200px",
   marginTop: "55px"
 };
 
