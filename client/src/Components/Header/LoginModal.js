@@ -7,7 +7,8 @@ const style = {
   },
   div: {
     margin: "auto",
-    width: "275px"
+    width: "275px",
+    userSelect: "none"
   },
   image: {
     width: "100%"
@@ -30,9 +31,11 @@ class LoginModal extends Component {
           <div class="image centered content">
             <div class="ui medium image" style={style.image}>
               <img
-                src={require("../Images/pickle_logo.png")}
+                src={require("../../Images/pickle_logo.png")}
                 alt="Pickle Logo"
                 style={style.logo}
+                draggable="false"
+                dragstart="false"
               />
             </div>
           </div>

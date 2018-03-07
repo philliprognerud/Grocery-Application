@@ -15,14 +15,10 @@ const style = {
 };
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
 
   handleClick() {
     $(".ui.modal").modal("show");
+    
   }
 
   render() {

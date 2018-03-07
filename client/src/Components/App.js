@@ -3,11 +3,11 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
-import ShoppingCart from "./ShoppingCart";
-import Logo from "./Logo";
-import MenuBar from "./MenuBar";
-import ActionCard from "./ActionCard";
-import Login from "./Login";
+import ShoppingCart from "./Header/ShoppingCart";
+import Logo from "./Header/Logo";
+import MenuBar from "./Header/MenuBar";
+import ActionCard from "./FrontPage/ActionCard";
+import Login from "./Header/Login";
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
           <Logo />
           <ShoppingCart />
           <Login />
-          <Route exact path="/shawn/*" component={MenuBar} />
+          <MenuBar />
           <Route exact path="/dom/*" component={ActionCard} />
         </div>
       </BrowserRouter>

@@ -6,14 +6,15 @@ const style = {
   logo: {
     width: "50px",
     display: "inline-block",
-    marginLeft: "200px",
+
     marginTop: "25px"
   },
   header: {
     display: "inline-block"
   },
   div: {
-    float: "left"
+    float: "left",
+    marginLeft: "15%"
   }
 };
 
@@ -24,7 +25,7 @@ class Logo extends Component {
         <a href="/">
           <img
             style={style.logo}
-            src={require("../Images/pickle_logo.png")}
+            src={require("../../Images/pickle_logo.png")}
             alt="Pickle Logo"
           />
           <h1 style={style.header} className="ui header">
