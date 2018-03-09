@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 const style = {
   logo: {
@@ -23,6 +24,52 @@ const style = {
 };
 
 class LoginModal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: "",
+      password: ""
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUserChange = this.handleUserChange.bind(this);
+    this.handlePwChange = this.handlePwChange.bind(this);
+  }
+
+  async handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.username, this.state.password);
+
+    await axios.post("/auth/local", {
+      username: this.state.username,
+      password: this.state.password
+    });
+  }
+
+  handleFacebookAuth(e) {
+    let popup = window.open(
+      "/auth/facebook",
+      "",
+      "menubar=1,resizable=1,width=700,height=500"
+    );
+
+    var timer = setInterval(function() {
+      if (popup.closed) {
+        clearInterval(timer);
+        window.location.reload();
+      }
+    }, 1000);
+  }
+
+  handleUserChange(e) {
+    this.setState({ username: e.target.value });
+  }
+
+  handlePwChange(e) {
+    this.setState({ password: e.target.value });
+  }
+
   render() {
     return (
       <div class="ui modal" style={style.modal}>
@@ -45,30 +92,39 @@ class LoginModal extends Component {
               <div class="sub header">Login with your email and password</div>
             </div>
           </h2>
-          <form class="ui form">
+          <form class="ui form" onSubmit={this.handleSubmit}>
             <div class="field">
               <input
                 type="text"
-                name="first-name"
+                name="username"
                 placeholder="Email address or username"
+                value={this.state.username}
+                onChange={this.handleUserChange}
               />
             </div>
             <div class="field">
               <input
                 type="text"
-                name="last-name"
+                name="password"
                 placeholder="Password (min 6 characters)"
+                value={this.state.password}
+                onChange={this.handlePwChange}
               />
             </div>
             <button class="ui orange button" type="submit" style={style.btn}>
               Log in
             </button>
+            <a href="/auth/logout">Log Out</a>
           </form>
           <div class="ui horizontal divider">Or</div>
 
           <div class="row">
             <div class="column">
-              <button class="ui facebook button" style={style.btn}>
+              <button
+                class="ui facebook button"
+                style={style.btn}
+                onClick={this.handleFacebookAuth}
+              >
                 <i class="facebook icon" />
                 Facebook
               </button>

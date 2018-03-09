@@ -8,6 +8,7 @@ import Logo from "./Header/Logo";
 import MenuBar from "./Header/MenuBar";
 import ActionCard from "./FrontPage/ActionCard";
 import Login from "./Header/Login";
+import CartSideBar from "./Header/CartSideBar";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <ShoppingCart />
           <Login />
           <MenuBar />
+          <CartSideBar />
           <Route exact path="/dom/*" component={ActionCard} />
         </div>
       </BrowserRouter>

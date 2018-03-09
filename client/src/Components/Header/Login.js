@@ -5,20 +5,21 @@ import LoginModal from "./LoginModal";
 
 const style = {
   btn: {
-    display: "inline-block",
-    marginRight: "35px",
-    marginTop: "65px"
+    display: "inline-block"
+    //next two lines applied to div container with percentages - mohamed
+    // marginRight: "35px",
+    // marginTop: "65px"
   },
   div: {
-    float: "right"
+    float: "right",
+    marginRight: "1%",
+    marginTop: "57px"
   }
 };
 
 class Login extends Component {
-
   handleClick() {
     $(".ui.modal").modal("show");
-    
   }
 
   render() {

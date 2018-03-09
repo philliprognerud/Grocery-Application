@@ -13,7 +13,7 @@ const savedLink = "/saved";
 class MenuBar extends Component {
   render() {
     return (
-      <div className="ui attached stackable menu">
+      <div className="ui attached four item menu">
         <div className="ui container">
           <a className="item" href={homeLink}>
             <i className="home icon" /> Home
