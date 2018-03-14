@@ -4,12 +4,17 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   localAuth: {
     username: String,
-    password: String
+    password: String,
+    email: String
   },
   facebookAuth: {
     id: String,
     firstName: String,
     lastName: String
+  },
+  googleAuth: {
+    id: String,
+    name: String
   }
 });
 

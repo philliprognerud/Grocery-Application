@@ -20,6 +20,12 @@ const style = {
   },
   btn: {
     width: "100%"
+  },
+  loader: {
+    float: "left"
+  },
+  loaderDiv: {
+    padding: "15px"
   }
 };
 
@@ -29,7 +35,9 @@ class LoginModal extends Component {
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      failureLogin: false,
+      successLogin: true
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,29 +45,40 @@ class LoginModal extends Component {
     this.handlePwChange = this.handlePwChange.bind(this);
   }
 
+  componentDidMount() {
+    let input = document.querySelectorAll(".formInput");
+    input.forEach(elem => {
+      elem.setAttribute("autocomplete", "off");
+    });
+  }
+
   async handleSubmit(e) {
     e.preventDefault();
     console.log(this.state.username, this.state.password);
 
-    await axios.post("/auth/local", {
+    const userLogin = await axios.post("/auth/login", {
       username: this.state.username,
       password: this.state.password
     });
+
+    this.setState({
+      failureLogin: userLogin.data.success ? false : true,
+      successLogin: userLogin.data.success ? false : true
+    });
+
+    if (!this.state.failureLogin) {
+      setTimeout(function() {
+        window.location.href = "/";
+      }, 1000);
+    }
   }
 
-  handleFacebookAuth(e) {
-    let popup = window.open(
-      "/auth/facebook",
-      "",
-      "menubar=1,resizable=1,width=700,height=500"
-    );
-
-    var timer = setInterval(function() {
-      if (popup.closed) {
-        clearInterval(timer);
-        window.location.reload();
-      }
-    }, 1000);
+  handleSocialAuth(e) {
+    if (e.target.name === "facebook") {
+      window.location.href = "/auth/facebook";
+    } else if (e.target.name === "google") {
+      window.location.href = "/auth/google";
+    }
   }
 
   handleUserChange(e) {
@@ -72,11 +91,11 @@ class LoginModal extends Component {
 
   render() {
     return (
-      <div class="ui modal" style={style.modal}>
-        <i class="close icon" />
+      <div className="ui modal" style={style.modal}>
+        <i className="close icon" />
         <div style={style.div}>
-          <div class="image centered content">
-            <div class="ui medium image" style={style.image}>
+          <div className="image centered content">
+            <div className="ui medium image" style={style.image}>
               <img
                 src={require("../../Images/pickle_logo.png")}
                 alt="Pickle Logo"
@@ -86,15 +105,39 @@ class LoginModal extends Component {
               />
             </div>
           </div>
-          <h2 class="ui centered header">
-            <div class="content">
+          <h2 className="ui centered header">
+            <div className="content">
               Welcome Back!
-              <div class="sub header">Login with your email and password</div>
+              <div className="sub header">
+                Login with your email and password
+              </div>
             </div>
           </h2>
-          <form class="ui form" onSubmit={this.handleSubmit}>
-            <div class="field">
+          <div
+            className="ui negative message"
+            style={{ display: this.state.failureLogin ? "block" : "none" }}
+          >
+            <p>Username or password is incorrect</p>
+          </div>
+
+          <div
+            className="ui icon success message"
+            style={{
+              ...style.loaderDiv,
+              display: this.state.successLogin ? "none" : "block"
+            }}
+          >
+            <i className="notched circle loading icon" style={style.loader} />
+            <div className="content">
+              <div className="header">Success</div>
+              <p>Logging you in, one moment.</p>
+            </div>
+          </div>
+
+          <form className="ui form" onSubmit={this.handleSubmit}>
+            <div className="field">
               <input
+                className="formInput"
                 type="text"
                 name="username"
                 placeholder="Email address or username"
@@ -102,8 +145,9 @@ class LoginModal extends Component {
                 onChange={this.handleUserChange}
               />
             </div>
-            <div class="field">
+            <div className="field">
               <input
+                className="formInput"
                 type="text"
                 name="password"
                 placeholder="Password (min 6 characters)"
@@ -111,34 +155,55 @@ class LoginModal extends Component {
                 onChange={this.handlePwChange}
               />
             </div>
-            <button class="ui orange button" type="submit" style={style.btn}>
+            <button
+              className="ui orange button"
+              type="submit"
+              style={style.btn}
+            >
               Log in
             </button>
-            <a href="/auth/logout">Log Out</a>
           </form>
-          <div class="ui horizontal divider">Or</div>
+          <div className="ui horizontal divider">Or</div>
 
-          <div class="row">
-            <div class="column">
+          <div className="row">
+            <div className="column">
               <button
-                class="ui facebook button"
+                className="ui facebook button"
                 style={style.btn}
-                onClick={this.handleFacebookAuth}
+                onClick={this.handleSocialAuth}
+                name="facebook"
               >
-                <i class="facebook icon" />
+                <i className="facebook icon" />
                 Facebook
               </button>
             </div>
-            <div class="column">
+            <div className="column">
               <button
-                class="ui google plus button"
+                className="ui google plus button"
                 style={{ ...style.btn, marginTop: "10px" }}
+                onClick={this.handleSocialAuth}
+                name="google"
               >
-                <i class="google plus icon" />
+                <i className="google plus icon" />
                 Google Plus
               </button>
             </div>
           </div>
+
+          <h2 className="ui centered header">
+            <div className="content">
+              <div className="sub header">
+                Don't have an account?
+                <a> Sign up</a>
+              </div>
+              <div className="sub header">
+                Forgot your password?
+                <a> Reset it</a>
+              </div>
+            </div>
+          </h2>
+
+          <a href="/auth/logout">Log Out</a>
         </div>
       </div>
     );
@@ -146,3 +211,19 @@ class LoginModal extends Component {
 }
 
 export default LoginModal;
+
+// let popup = window.open(
+//   "/auth/facebook",
+//   "popup",
+//   "menubar=1,resizable=1,width=700,height=500"
+// );
+
+// var timer = setInterval(function() {
+//   // if(this.props.auth){
+//   //   popup.close();
+//   // }
+//   if (popup.closed) {
+//     clearInterval(timer);
+//     window.location.reload();
+//   }
+// }, 1000);

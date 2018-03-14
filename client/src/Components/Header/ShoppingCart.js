@@ -26,8 +26,12 @@ class ShoppingCart extends Component {
 
   render() {
     return (
-      <div class="ui vertical button" style={style.cart}>
-        <i class="shop icon" onClick={this.handleClick} />
+      <div
+        className="ui vertical button"
+        style={style.cart}
+        onClick={this.handleClick}
+      >
+        <i className="shop icon" />
       </div>
     );
   }

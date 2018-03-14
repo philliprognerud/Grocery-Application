@@ -6,7 +6,6 @@ const style = {
   logo: {
     width: "50px",
     display: "inline-block",
-
     marginTop: "25px"
   },
   header: {

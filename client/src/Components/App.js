@@ -9,7 +9,9 @@ import MenuBar from "./Header/MenuBar";
 import ActionCard from "./FrontPage/ActionCard";
 import Login from "./Header/Login";
 import CartSideBar from "./Header/CartSideBar";
-
+import SearchBar from "./Header/SearchBar";
+import Item from "./Header/Item"; // be sure to import your Component - S
+import Carousel from "./Header/Carousel";
 const App = () => {
   return (
     <div>
@@ -18,9 +20,11 @@ const App = () => {
           <Logo />
           <ShoppingCart />
           <Login />
+          <SearchBar />
           <MenuBar />
           <CartSideBar />
-          <Route exact path="/dom/*" component={ActionCard} />
+          <ActionCard />
+          <Carousel />
         </div>
       </BrowserRouter>
     </div>

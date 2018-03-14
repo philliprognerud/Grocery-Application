@@ -11,8 +11,10 @@
     "axios": "^0.18.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "react-slick": "^0.20.0"
   },
   "scripts": {
     "start": "PORT=8080 react-scripts start",
