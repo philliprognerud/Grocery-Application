@@ -5,33 +5,45 @@ import Slider from "react-slick";
 const style = {
   textLeft: {
     float: "left",
-    marginTop: "-3%"
+    marginTop: "-3%",
+    position: "relative",
+    top: "0",
+    left: "96px"
   },
   textRight: {
     float: "right",
     marginTop: "-3%"
   },
-  itemGrid: {},
-  item: { marginLeft: "10px", marginRight: "10px" },
-  carouselContainer: {
-    marginTop: "100px",
-    marginLeft: "15%",
-    marginRight: "5%",
-    maxWidth: "85%"
+  item: {
+    marginLeft: "10px",
+    marginRight: "10px"
+  },
+  container: {
+    margin: "80px auto",
+    width: "77%",
+    paddingBottom: "100px"
   },
   gridHeader: {
-    marginTop: "0px"
+    marginTop: "0px",
+    display: "inline-block"
   },
   inSlider: {
     display: "inline-block",
     width: 500
+  },
+
+  nextButton: {
+    color: "red"
+  },
+  prevButton: {
+    color: "green"
   }
 };
 const tempItems = [
   {
     id: "1",
     price: "1.00",
-    description: "first",
+    description: "first asfdlsdkjf asflkjas dflkjasdf lkjasdf kjasdf ",
     weight: "1 oz",
     image: "../../Images/pickle_logo.png"
   },
@@ -59,16 +71,47 @@ const tempItems = [
 ];
 
 const disp = tempItems.map(item => {
-  return <Item key={item.id} item={item} />;
+  return (
+    <div>
+      <Item key={item.id} item={item} />
+    </div>
+  );
 });
 
+const PrevArrow = props => {
+  return (
+    <div>
+      <button
+        style={style.prevButton}
+        onClick={props.onClick}
+        className={`circular ui icon button ${props.className}`}
+      >
+        <i className="arrow circle icon left" />
+      </button>
+    </div>
+  );
+};
+const NextArrow = props => {
+  return (
+    <button
+      style={style.nextButton}
+      onClick={props.onClick}
+      className={`circular ui icon button ${props.className}`}
+      //good 2 go, I used the ES6 syntax backticks `` instead of ""
+    >
+      <i className="arrow circle right icon" />
+    </button>
+  );
+};
 const settings = {
   dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 5,
   slidesToScroll: 5,
-  centerPadding: "40px"
+  centerPadding: "80px",
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />
 };
 
 class Carousel extends Component {
@@ -80,15 +123,15 @@ class Carousel extends Component {
 
   render() {
     return (
-      //Scroll down to get the commented out code if you need it, everything should be good to go now -Phil
-      <div
-        style={{
-          margin: "50px auto",
-          width: "800px",
-          paddingBottom: "100px"
-        }}
-      >
-        <h2> New Arrivals</h2>
+      <div style={style.container} className="container">
+        <div className="gridHeader">
+          <h4 style={style.textLeft} id="left" className="ui header">
+            New Arrivals
+          </h4>
+          <h4 style={style.textRight} id="right" className="ui header">
+            <a href="/">View More</a>
+          </h4>
+        </div>
         <Slider {...settings}>
           <div>
             <div style={style.item}>{disp[0]}</div>
@@ -119,6 +162,46 @@ class Carousel extends Component {
     );
   }
 }
+//     return (
+//       //Scroll down to get the commented out code if you need it, everything should be good to go now -Phil
+//       <div
+//         style={{
+//           margin: "50px auto",
+//           width: "800px",
+//           paddingBottom: "100px"
+//         }}
+//       >
+//         <h2> New Arrivals</h2>
+//         <Slider {...settings}>
+//           <div>
+//             <div style={style.item}>{disp[0]}</div>
+//           </div>
+//           <div>
+//             <div style={style.item}>{disp[0]}</div>
+//           </div>
+//           <div>
+//             <div style={style.item}>{disp[0]}</div>
+//           </div>
+//           <div>
+//             <div style={style.item}>{disp[0]}</div>
+//           </div>
+//           <div>
+//             <div style={style.item}>{disp[0]}</div>
+//           </div>
+//           <div>
+//             <div style={style.item}>{disp[0]}</div>
+//           </div>
+//           <div>
+//             <div style={style.item}>{disp[0]}</div>
+//           </div>
+//           <div>
+//             <div style={style.item}>{disp[0]}</div>
+//           </div>
+//         </Slider>
+//       </div>
+//     );
+//   }
+
 export default Carousel;
 /*
 this will receive its list of items as a property. and display them in the 

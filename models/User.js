@@ -5,7 +5,8 @@ const userSchema = new Schema({
   localAuth: {
     username: String,
     password: String,
-    email: String
+    email: String,
+    zipCode: String
   },
   facebookAuth: {
     id: String,

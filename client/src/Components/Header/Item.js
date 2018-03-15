@@ -30,15 +30,27 @@ class Item extends Component {
           </a>
         </div>
         <div style={style.details} className="details">
-          <h3>{this.props.item.price}</h3>
-          <h5>{this.props.item.description}</h5>
-          <p>{this.props.item.weight}</p>
+          <p>
+            <strong>
+              <big>{this.props.price}</big>
+            </strong>
+          </p>
+          <p>
+            <span className="desc" style={style.desc}>
+              {this.props.description}
+            </span>
+          </p>
+          <p style={style.weight} className="weight">
+            {this.props.weight}
+          </p>
         </div>
       </div>
     );
   }
 }
-
+//<h3 className='price' style={style.price}>{this.props.item.price}</h3>
+// <h5 className='desc'>{this.props.item.description}</h5>
+// <p className='weight'>{this.props.item.weight}</p>
 export default Item;
 
 /*

@@ -9,7 +9,7 @@ middlewareObj.isLoggedIn = (req, res, next) => {
     return next();
   }
 
-  res.redirect("/");
+  res.send(null);
 };
 
 middlewareObj.usernameAvail = async (req, res, next) => {
@@ -39,16 +39,17 @@ middlewareObj.emailAvail = async (req, res, next) => {
   });
 };
 
-middlewareObj.createAccount = async (username, password, email) => {
-  await new User({
+middlewareObj.createAccount = async (username, password, email, zipCode) => {
+  const newUser = await new User({
     localAuth: {
       username,
       password,
-      email
+      email,
+      zipCode
     }
   }).save();
 
-  return;
+  return newUser;
 };
 
 module.exports = middlewareObj;

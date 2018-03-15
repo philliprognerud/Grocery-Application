@@ -13,24 +13,26 @@ const style = {
   },
   div: {
     float: "left",
-    marginLeft: "15%"
+    marginLeft: "16%"
   }
 };
 
 class Logo extends Component {
   render() {
     return (
-      <div style={style.div}>
-        <a href="/">
-          <img
-            style={style.logo}
-            src={require("../../Images/pickle_logo.png")}
-            alt="Pickle Logo"
-          />
-          <h1 style={style.header} className="ui header">
-            Pickle
-          </h1>
-        </a>
+      <div>
+        <div style={style.div}>
+          <a href="/">
+            <img
+              style={style.logo}
+              src={require("../../Images/pickle_logo.png")}
+              alt="Pickle Logo"
+            />
+            <h1 style={style.header} className="ui header">
+              Pickle
+            </h1>
+          </a>
+        </div>
       </div>
     );
   }

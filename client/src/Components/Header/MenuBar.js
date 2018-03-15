@@ -6,9 +6,7 @@ import React, { Component } from "react";
 const homeLink = "/";
 const departLink = "/departments";
 const couponsLink = "/coupons";
-const recentLink = "/recent";
-const listsLink = "/lists";
-const savedLink = "/saved";
+const itemstLink = "/items";
 
 class MenuBar extends Component {
   render() {
@@ -25,21 +23,10 @@ class MenuBar extends Component {
           <a className="item" href={couponsLink}>
             <i className="gift icon" /> Coupons
           </a>
-          <div className="ui simple dropdown item">
-            Your Items
-            <i className="dropdown icon" />
-            <div className="menu">
-              <a className="item" href={recentLink}>
-                <i className="truck icon" /> Recent Orders
-              </a>
-              <a className="item" href={listsLink}>
-                <i className="archive icon" /> Lists
-              </a>
-              <a className="item" href={savedLink}>
-                <i className="star icon" /> Saved
-              </a>
-            </div>
-          </div>
+
+          <a className="item" href={itemstLink}>
+            <i className="list alternate outline icon" /> Your Items
+          </a>
         </div>
       </div>
     );
