@@ -4,7 +4,9 @@ import React, { Component } from "react";
 import CartSideBar from "./CartSideBar.js";
 
 const style = {
-  cart: {}
+  cart: {
+    float: "right"
+  }
 };
 
 class CartBtn extends Component {

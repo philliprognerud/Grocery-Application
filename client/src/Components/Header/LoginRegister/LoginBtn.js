@@ -20,14 +20,11 @@ class LoginBtn extends Component {
     this.renderLoginBtn = this.renderLoginBtn.bind(this);
   }
 
-  componentDidMount() {}
-
   handleClick() {
     $(".ui.modal").modal("show");
   }
 
   renderLoginBtn() {
-    console.log(this.props.auth);
     switch (this.props.auth) {
       case null:
         return;

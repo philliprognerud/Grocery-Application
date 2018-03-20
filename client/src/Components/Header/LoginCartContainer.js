@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import LoginBtn from "./LoginRegister/LoginBtn";
 import AccountDropDown from "./LoginRegister/AccountDropDown";
@@ -9,14 +10,19 @@ const style = {
     float: "right",
     marginTop: "57px",
     marginRight: "16%",
-    width: "200px"
+    width: "220px"
   }
 };
 
 class LoginCartContainer extends Component {
   render() {
     return (
-      <div style={style.container}>
+      <div
+        className="login cart"
+        style={{
+          ...style.container
+        }}
+      >
         <CartBtn />
         <LoginBtn />
         <AccountDropDown />
@@ -25,4 +31,8 @@ class LoginCartContainer extends Component {
   }
 }
 
-export default LoginCartContainer;
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps)(LoginCartContainer);

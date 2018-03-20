@@ -5,16 +5,26 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
-//Header Components
-import Logo from "./Header/Logo";
-import SearchBar from "./Header/SearchBar";
-import LoginCartContainer from "./Header/LoginCartContainer";
-import MenuBar from "./Header/MenuBar";
-import CartSideBar from "./Header/Cart/CartSideBar";
+//Header Container
+import Header from "../Containers/Header";
 
-import ActionCard from "./FrontPage/ActionCard";
-import Item from "./Header/Item";
-import Carousel from "./Header/Carousel";
+//Front Page Container
+import FrontPage from "../Containers/FrontPage";
+
+//Supplier page to add items
+import SupplierPage from "../Containers/SupplierPage";
+
+//Account page AccountMenu side bar
+import AccountMenu from "./AccountPage/AccountMenu";
+
+//Account info
+import AccountInfo from "./AccountPage/AccountInfo";
+
+//Order history
+import OrderHistory from "./AccountPage/OrderHistory";
+
+//Account page PromoCodes page
+import PromoCodes from "./AccountPage/PromoCodes";
 
 class App extends Component {
   componentDidMount() {
@@ -26,13 +36,13 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div>
-            <Logo />
-            <LoginCartContainer />
-            <SearchBar />
-            <MenuBar />
-            <CartSideBar />
-            <ActionCard />
-            <Carousel />
+            <Header />
+            <Route path="/" exact component={FrontPage} />
+            <Route path="/supplier/add-item" component={SupplierPage} />
+            <Route path="/AccountMenu" component={AccountMenu} />
+            <Route path="/AccountMenu/Account" component={AccountInfo} />
+            <Route path="/AccountMenu/OrderHistory" component={OrderHistory} />
+            <Route path="/AccountMenu/PromoCodes" component={PromoCodes} />
           </div>
         </BrowserRouter>
       </div>

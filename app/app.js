@@ -5,6 +5,7 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const keys = require("../config/keys");
 
+require("../models/Product");
 require("../models/User");
 require("../authentication/passport");
 
@@ -31,6 +32,8 @@ app.use(
 app.use(bodyParser.json());
 
 require("../routes/authRoutes")(app);
+require("../routes/supplierRoutes")(app);
+require("../routes/queries")(app);
 
 app.listen(8081, function() {
   console.log("NODE server listening on port 8081!");

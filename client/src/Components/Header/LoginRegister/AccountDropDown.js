@@ -32,27 +32,27 @@ class AccountDropDown extends Component {
 
       default:
         return (
-          <div class="ui dropdown button">
-            <span class="text">Account</span>
-            <i class="dropdown icon" />
+          <div className="ui dropdown button">
+            <span className="text">Account</span>
+            <i className="dropdown icon" />
 
-            <div class="menu">
-              <div class="header">
+            <div className="menu">
+              <div className="header">
                 <h3>Hi, Pickle User</h3>
               </div>
-              <div class="divider" />
+              <div className="divider" />
 
-              <div class="item">
-                <i class="user icon" />
-                Your Account
+              <div className="item">
+                <i className="user icon" />
+                Settings
               </div>
-              <div class="item">
-                <i class="list alternate outline icon" />
-                Your Orders
+              <div className="item">
+                <i className="list alternate outline icon" />
+                Orders
               </div>
-              <div class="divider" />
-              <div class="item">
-                <i class="sign out icon" />
+              <div className="divider" />
+              <div className="item">
+                <i className="sign out icon" />
                 <a href="/auth/logout">Sign Out</a>
               </div>
             </div>

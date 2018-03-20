@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
+const Product = mongoose.model("products");
 const keys = require("../config/keys");
 
 const middlewareObj = {};
@@ -50,6 +51,30 @@ middlewareObj.createAccount = async (username, password, email, zipCode) => {
   }).save();
 
   return newUser;
+};
+
+middlewareObj.createProduct = async (
+  imageURL,
+  price,
+  name,
+  weight,
+  stock,
+  tags,
+  id
+) => {
+  const tagArray = tags.split(",");
+
+  const newProduct = await new Product({
+    image: imageURL,
+    price: price,
+    name: name,
+    weight: weight,
+    stock: stock,
+    tags: tagArray,
+    addedBy: id
+  }).save();
+
+  return newProduct;
 };
 
 module.exports = middlewareObj;

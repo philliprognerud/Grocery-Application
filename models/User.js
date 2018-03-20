@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// const productSchema = require("./Product");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -16,7 +17,26 @@ const userSchema = new Schema({
   googleAuth: {
     id: String,
     name: String
-  }
+  },
+  cart: [
+    {
+      //Will contain array of itemID,count
+      itemID: String,
+      count: Number
+    }
+  ],
+  purchases: [
+    {
+      itemIDs: [],
+      date: { type: Date, default: Date.now }
+    }
+  ], //will contain a list of purchases with purchase date
+  addedItems: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "products"
+    }
+  ]
 });
 
 mongoose.model("users", userSchema);

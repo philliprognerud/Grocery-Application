@@ -3,6 +3,7 @@ const middleware = require("../middleware");
 const mongoose = require("mongoose");
 const keys = require("../config/keys");
 const User = mongoose.model("users");
+const Product = mongoose.model("products");
 
 module.exports = app => {
   app.post("/auth/search", function(req, res) {
