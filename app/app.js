@@ -1,12 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cookieSession = require("cookie-session");
+const session = require("express-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const keys = require("../config/keys");
 
 require("../models/Product");
 require("../models/User");
+require("../models/Guest");
 require("../authentication/passport");
 
 mongoose.connect(keys.mongoURI);
@@ -14,9 +15,11 @@ mongoose.connect(keys.mongoURI);
 const app = express();
 
 app.use(
-  cookieSession({
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey]
+  session({
+    secret: keys.cookieKey,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }
   })
 );
 

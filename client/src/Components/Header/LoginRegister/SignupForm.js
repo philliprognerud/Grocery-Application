@@ -93,23 +93,25 @@ class SignupForm extends Component {
       });
 
       if (this.state.usernameTaken) {
-        console.log("1");
         this.setState({
           error: true,
           errorMessage: "USERNAME is already taken."
         });
       } else if (this.state.emailTaken) {
-        console.log("2");
         this.setState({ error: true, errorMessage: "EMAIL is already taken." });
       }
 
       if (this.state.accountCreated) {
+        await axios.post("/auth/login", {
+          username: this.state.username,
+          password: this.state.password
+        });
+
         setTimeout(function() {
           window.location.href = "/";
         }, 1000);
       }
     } else {
-      console.log("3");
       this.setState({
         error: true,
         errorMessage: "Please enter your information again."

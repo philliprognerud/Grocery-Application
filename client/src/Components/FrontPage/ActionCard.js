@@ -8,7 +8,7 @@ const style = {
     cursor: "pointer"
   },
   card: {
-    backgroundColor: "#FFE4B5"
+    background: "linear-gradient(to left, #ffeeee, #ddefbb)"
   },
   button: {
     width: "30%",

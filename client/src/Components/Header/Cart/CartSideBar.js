@@ -1,58 +1,261 @@
 /*eslint-disable no-unreachable, no-extra-semi, no-unused-vars, no-undef, unknown-require, forbiddenExportImport, semi, no-const-assign, check-tern-plugin*/
 
 import React, { Component } from "react";
+import _ from "lodash";
+import axios from "axios";
+import { connect } from "react-redux";
+import * as actions from "../../../actions";
 
 const style = {
-  cartHeader: {},
-  itemList: {
-    paddingTop: "2%"
+  cartHeader: {
+    margin: "0px",
+    width: "150px",
+    display: "inline-block",
+    float: "left"
   },
-  checkout: {
-    paddingTop: "5%"
+  closeBtn: {
+    float: "right"
+  },
+  headerRow: {
+    marginBottom: "15px"
   },
   checkoutBtn: {
-    width: "55%",
-    marginLeft: "12%"
+    height: "50px"
+  },
+  itemContainer: {
+    position: "fixed",
+    top: "10%",
+    overflowY: "auto",
+    overflowX: "hidden",
+    width: "100%"
+  },
+  totalLabel: {
+    position: "fixed",
+    right: "4%",
+    bottom: "1.9%",
+    opacity: "0.90"
   }
 };
 
 class CartSideBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { cart: [], inputs: [] };
+
+    this.renderCartItems = this.renderCartItems.bind(this);
+    this.renderTotalAmount = this.renderTotalAmount.bind(this);
+  }
+
+  async componentDidUpdate() {
+    if (this.props.cart && !_.isEqual(this.props.cart, this.state.cart)) {
+      //Updating the inputs of the added items
+      let tempInputs = this.props.cart.map(item => {
+        return item.quantity;
+      });
+
+      //Remove bottom css style when items go below 10
+      let style = document.querySelector(".ui.itemContainer").style.bottom;
+      if (this.props.cart.length < 10 && style) {
+        document.querySelector(".ui.itemContainer").style.bottom = "";
+      }
+
+      this.setState({ cart: this.props.cart, inputs: tempInputs });
+    }
+  }
+
   handleCloseClick() {
     $(".ui.sidebar").sidebar("toggle");
   }
 
+  _handleInputChange(index, e) {
+    let itemCount = String(e.target.value || "0");
+
+    let temp = this.state.inputs.slice();
+
+    //If greater than 99 then set to 99
+    if (parseInt(itemCount, 10) >= 100) {
+      itemCount = "99";
+    }
+
+    //If "0" then set without parseInt
+    if (itemCount === "0") {
+      temp[index] = itemCount;
+    } else {
+      temp[index] = parseInt(itemCount, 10);
+    }
+
+    this.setState({ inputs: temp });
+  }
+
+  async _handleInputBlur(id, e) {
+    let itemCount = e.target.value;
+
+    let item = this.state.cart.find(entry => entry.product._id === id);
+
+    if (parseInt(item.quantity, 10) !== parseInt(itemCount, 10)) {
+      if (itemCount === "0") {
+        //Fade out the row
+        $(`.row.${id}`).transition("fade left");
+      }
+
+      console.log("before update item post");
+      //Update the count in User schema cart
+      await axios.post("/api/update-item-quantity", {
+        quantity: itemCount,
+        itemID: id
+      });
+
+      this.props.getUserCart();
+
+      setTimeout(() => {
+        //Get length of cart for CartBtn
+        this.props.updateUserCart();
+      }, 500);
+    }
+  }
+
+  async _handleDelete(id, e) {
+    //Stop additional even triggers
+
+    // console.log(id);
+    // document.querySelector(`.trash.${id}`).className +=
+    //   " TESTINGANOTHERCLASSSSSS";
+
+    await axios.post("/api/update-item-quantity", {
+      quantity: "0",
+      itemID: id
+    });
+
+    this.props.getUserCart();
+
+    setTimeout(() => {
+      //Get length of cart for CartBtn
+      this.props.updateUserCart();
+    }, 500);
+  }
+
+  renderTotalAmount() {
+    return this.state.cart
+      .map((item, index) => {
+        return parseFloat(item.product.price) * parseFloat(item.quantity);
+      })
+      .reduce((a, b) => a + b, 0)
+      .toFixed(2);
+  }
+
+  renderCartItems() {
+    switch (this.state.cart) {
+      case null:
+        return;
+      default:
+        return this.state.cart.map((item, index) => {
+          if (index === 10) {
+            document.querySelector(".ui.itemContainer").style.bottom = "10%";
+          }
+          return (
+            <div className={`row ${item.product._id}`} key={index}>
+              <div class="three wide column">
+                <img
+                  class="ui small image"
+                  src={item.product.image}
+                  alt={item.product.name}
+                />
+              </div>
+              <div
+                class="six wide column"
+                style={{
+                  marginTop: "15px",
+                  padding: "0px",
+                  textAlign: "left",
+                  paddingLeft: "15px"
+                }}
+              >
+                {item.product.name}
+              </div>
+              <div
+                class="two wide column"
+                style={{ marginTop: "10px", padding: "0px" }}
+              >
+                <div class="ui input" style={{ width: "40px" }}>
+                  <input
+                    type="text"
+                    value={
+                      this.state.inputs[index]
+                        ? this.state.inputs[index]
+                        : item.quantity
+                    }
+                    onChange={e => this._handleInputChange(index, e)}
+                    onBlur={e => this._handleInputBlur(item.product._id, e)}
+                    style={{ padding: "8px", textAlign: "center" }}
+                  />
+                </div>
+              </div>
+              <div
+                class="three wide column"
+                style={{ marginTop: "15px", padding: "0px" }}
+              >
+                ${item.product.price}
+              </div>
+              <div
+                class="two wide column"
+                style={{ marginTop: "15px", padding: "0px" }}
+              >
+                <i
+                  className="trash alternate outline icon large"
+                  style={{ cursor: "pointer" }}
+                  onClick={e => this._handleDelete(item.product._id, e)}
+                />
+              </div>
+            </div>
+          );
+        });
+    }
+  }
+
   render() {
     return (
-      <div>
-        <div className="ui very wide right vertical menu sidebar">
-          <div>
-            <button
-              className="mini ui red basic button"
-              onClick={this.handleCloseClick}
-            >
-              Close
-            </button>
+      <div className="ui very wide right vertical menu sidebar">
+        <div class="ui equal width center aligned padded grid">
+          <div class="row" style={style.headerRow}>
+            <div class="olive column">
+              <h2 class="ui inverted header" style={style.cartHeader}>
+                <div class="content">Personal Cart</div>
+              </h2>
+              <button
+                className="tiny ui orange button"
+                style={style.closeBtn}
+                onClick={this.handleCloseClick}
+              >
+                <i className="times icon" />
+                Close
+              </button>
+            </div>
           </div>
-          <h2 className="ui centered header">Shopping Cart</h2>
-          <div>
-            <h2 className="ui center aligned sub header">
-              Shipped to: Wherever
-            </h2>
+
+          <div
+            class="ui equal width center aligned padded grid itemContainer"
+            style={style.itemContainer}
+          >
+            {this.renderCartItems()}
           </div>
-          <div className="itemList" style={style.itemList}>
-            <a className="item">Item 1</a>
-            <a className="item">Item 2</a>
-            <a className="item">Item 3</a>
-          </div>
-          <div className="ui left action input" style={style.checkout}>
-            <button
-              className="fluid ui green labeled icon button"
-              style={style.checkoutBtn}
-            >
-              <i className="cart icon" />
-              Checkout
-            </button>
-            <input type="text" />
+
+          <div
+            className="row"
+            style={{
+              position: "fixed",
+              bottom: "0",
+              background: "white"
+            }}
+          >
+            <div class="sixteen wide column">
+              <button class="fluid ui orange button" style={style.checkoutBtn}>
+                Checkout
+                <div class="ui huge label" style={style.totalLabel}>
+                  ${this.renderTotalAmount()}
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -60,4 +263,8 @@ class CartSideBar extends Component {
   }
 }
 
-export default CartSideBar;
+function mapStateToProps({ cart }) {
+  return { cart };
+}
+
+export default connect(mapStateToProps, actions)(CartSideBar);

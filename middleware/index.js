@@ -62,14 +62,19 @@ middlewareObj.createProduct = async (
   tags,
   id
 ) => {
-  const tagArray = tags.split(",");
+  const tagArray = tags
+    .split(",")
+    .split(",")
+    .map(function(tag) {
+      return tag.trim();
+    });
 
   const newProduct = await new Product({
     image: imageURL,
-    price: price,
-    name: name,
-    weight: weight,
-    stock: stock,
+    price: price.trim(),
+    name: name.trim(),
+    weight: weight.trim(),
+    stock: stock.trim(),
     tags: tagArray,
     addedBy: id
   }).save();

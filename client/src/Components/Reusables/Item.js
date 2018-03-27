@@ -1,12 +1,14 @@
+/*eslint-disable no-unreachable, no-extra-semi, no-unused-vars, no-undef, unknown-require, forbiddenExportImport, semi, no-const-assign, check-tern-plugin*/
+
 import React, { Component } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import * as actions from "../../actions";
+
+import AddToCart from "./AddToCart";
+import GuestModal from "./GuestModal";
 
 const style = {
-  itemText: {
-    textAlign: "left"
-  },
-  image: {
-    padding: "10px"
-  },
   desc: {
     color: "#5a5a5a",
     lineHeight: "1.3em",
@@ -25,6 +27,15 @@ const style = {
     color: "#999",
     fontSize: "12px",
     fontWeight: "300"
+  },
+  cartDiv: {
+    background: "linear-gradient(to top, white 40%, rgba(0,0,0,0))",
+    position: "absolute",
+    top: "40%",
+    float: "right",
+    width: "160px",
+    height: "50px",
+    display: "none"
   }
 };
 
@@ -32,38 +43,80 @@ class Item extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { item: {} };
+    this.state = { guestModal: false };
+  }
+
+  _handleMouseEnter(e) {
+    $(`.${this.props.fadeID}`).transition({
+      animation: "fade up",
+      duration: 250
+    });
+  }
+
+  _handleMouseLeave(e) {
+    $(`.${this.props.fadeID}`).transition({
+      animation: "fade up",
+      duration: 120
+    });
+  }
+
+  async _handleAddToCart(clicked) {
+    //Adding to User cart
+    this.props.updateUserCart(this.props.itemID);
+
+    //Figure out how to wrap redux in promise
+    setTimeout(() => {
+      this.props.getUserCart();
+    }, 500);
+  }
+
+  _handleImage(clicked) {
+    // window.location.href = "/test";
   }
 
   render() {
     return (
-      <div>
-        <div className="ui small image" style={style.image}>
-          <a href="/">
+      <div
+        onMouseEnter={e => this._handleMouseEnter(e)}
+        onMouseLeave={e => this._handleMouseLeave(e)}
+        style={{
+          width: "150px",
+          display: "inline-block",
+          marginLeft: "15px",
+          marginRight: "15px"
+        }}
+      >
+        <div class="ui items" style={{ margin: "0px" }}>
+          <div class="image">
             <img
-              //src={require(`${this.props.item.image}`)}
-              src={require("../../Images/fish_arse.jpeg")}
+              src={this.props.img}
+              href="/test"
               alt="generic grocery"
+              draggable="false"
+              dragstart="false"
+              onClick={e => this._handleImage(e)}
+              style={{ cursor: "pointer" }}
             />
-          </a>
+          </div>
+          <div class="item" style={{ margin: "0px", paddingLeft: "10px" }}>
+            <div class="content">
+              <a class="header">${parseFloat(this.props.price).toFixed(2)}</a>
+              <div class="meta">
+                <span>{this.props.title}</span>
+              </div>
+              <div class="extra">
+                {parseFloat(this.props.weight).toFixed(1)} oz
+              </div>
+            </div>
+          </div>
         </div>
-        <div style={style.itemText}>
-          <p style={style.price}>{`$${this.props.item.price}`} </p>
-          <p style={style.desc}>{this.props.item.description}</p>
-          <p style={style.weight}>{this.props.item.weight}</p>
+
+        <div className={this.props.fadeID} style={style.cartDiv}>
+          <AddToCart btnClick={e => this._handleAddToCart(e)} />
         </div>
       </div>
     );
   }
 }
-//<h3 className='price' style={style.price}>{this.props.item.price}</h3>
-// <h5 className='desc'>{this.props.item.description}</h5>
-// <p className='weight'>{this.props.item.weight}</p>
-export default Item;
 
-/*
-For Item.js it's going to get passed down information from the carousel 
-container. Such as the image (link), the price, description, and 
-weight in ounces, those will all be held in the state of the Item 
-component.
-*/
+export default connect(null, actions)(Item);

@@ -6,12 +6,6 @@ const User = mongoose.model("users");
 const Product = mongoose.model("products");
 
 module.exports = app => {
-  app.post("/auth/search", function(req, res) {
-    let data = req.body.fishassholes;
-    res.send({ test: "test" });
-    //do whatever you want
-  });
-
   app.post("/auth/login", async function(req, res, next) {
     passport.authenticate("local", async function(err, user, info) {
       if (err) {

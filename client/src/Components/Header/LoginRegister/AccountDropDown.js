@@ -16,10 +16,8 @@ class AccountDropDown extends Component {
     this.renderDropDown = this.renderDropDown.bind(this);
   }
 
-  componentDidMount() {
-    setTimeout(function() {
-      $(".ui.dropdown").dropdown();
-    }, 400);
+  componentDidUpdate() {
+    $(".ui.dropdown.button").dropdown();
   }
 
   renderDropDown() {
@@ -62,7 +60,11 @@ class AccountDropDown extends Component {
   }
 
   render() {
-    return <div style={style.div}>{this.renderDropDown()}</div>;
+    return (
+      <div className="dropContainer" style={style.div}>
+        {this.renderDropDown()}
+      </div>
+    );
   }
 }
 

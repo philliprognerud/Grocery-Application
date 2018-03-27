@@ -20,9 +20,12 @@ const userSchema = new Schema({
   },
   cart: [
     {
-      //Will contain array of itemID,count
-      itemID: String,
-      count: Number
+      _id: false,
+      product: {
+        type: mongoose.Schema.ObjectId,
+        ref: "products"
+      },
+      quantity: Number
     }
   ],
   purchases: [
@@ -30,7 +33,7 @@ const userSchema = new Schema({
       itemIDs: [],
       date: { type: Date, default: Date.now }
     }
-  ], //will contain a list of purchases with purchase date
+  ],
   addedItems: [
     {
       type: mongoose.Schema.ObjectId,

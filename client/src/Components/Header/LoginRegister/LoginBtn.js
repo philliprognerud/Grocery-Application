@@ -31,7 +31,7 @@ class LoginBtn extends Component {
 
       case false:
         return (
-          <button className="ui green button" onClick={this.handleClick}>
+          <button className="ui button" onClick={this.handleClick}>
             Login
           </button>
         );

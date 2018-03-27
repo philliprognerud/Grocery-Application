@@ -26,8 +26,7 @@ const FrontPage = () => {
           <ActionCard />
         </div>
       </div>
-      <Carousel />
-      <Carousel />
+      <Carousel keywords={["fruit"]} title={"Fresh Fruit"} />
     </div>
   );
 };

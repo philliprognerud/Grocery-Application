@@ -5,6 +5,9 @@ const style = {
     background: "white",
     height: "10%",
     width: "40%"
+  },
+  setDefaultBtn: {
+    float: "right"
   }
 };
 
@@ -15,16 +18,18 @@ class Addresses extends Component {
         <h2>Addresses</h2>
         <div className="ui segments">
           <div className="ui segment">
-            <p>Top</p>
+            <p>Address 1</p>
           </div>
           <div className="ui segment">
-            <p>Middle</p>
+            <p>Address 2</p>
           </div>
           <div className="ui segment">
-            <p>Bottom</p>
+            <p>Address 3</p>
           </div>
         </div>
       </div>
     );
   }
 }
+
+export default Addresses;

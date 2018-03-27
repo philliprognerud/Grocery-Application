@@ -20,15 +20,23 @@ import AccountMenu from "./AccountPage/AccountMenu";
 //Account info
 import AccountInfo from "./AccountPage/AccountInfo";
 
+//Addresses
+import Addresses from "./AccountPage/Addresses";
+
 //Order history
 import OrderHistory from "./AccountPage/OrderHistory";
 
 //Account page PromoCodes page
 import PromoCodes from "./AccountPage/PromoCodes";
 
+//Account page PromoCodes page
+import PaymentMethods from "./AccountPage/PaymentMethods";
+
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
+    this.props.updateUserCart();
+    this.props.getUserCart();
   }
 
   render() {
@@ -42,7 +50,12 @@ class App extends Component {
             <Route path="/AccountMenu" component={AccountMenu} />
             <Route path="/AccountMenu/Account" component={AccountInfo} />
             <Route path="/AccountMenu/OrderHistory" component={OrderHistory} />
+            <Route path="/AccountMenu/Addresses" component={Addresses} />
             <Route path="/AccountMenu/PromoCodes" component={PromoCodes} />
+            <Route
+              path="/AccountMenu/PaymentMethods"
+              component={PaymentMethods}
+            />
           </div>
         </BrowserRouter>
       </div>

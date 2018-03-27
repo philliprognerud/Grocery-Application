@@ -11,9 +11,9 @@ const itemstLink = "/items";
 class MenuBar extends Component {
   render() {
     return (
-      <div className="ui attached four item menu">
+      <div className="ui attached four item  menu">
         <div className="ui container">
-          <a className="item" href={homeLink}>
+          <a className="active item" href={homeLink}>
             <i className="home icon" /> Home
           </a>
           <a className="item" href={departLink}>
