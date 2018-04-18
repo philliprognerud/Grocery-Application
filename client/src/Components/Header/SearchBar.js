@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 const style = {
   div: {
@@ -39,28 +38,25 @@ class SearchBar extends Component {
 
   async handleKeyPress(e) {
     if (e.key === "Enter") {
-      //Back-end POST request using axios
-      //This sends information to your specified route in the back-end
-      await axios.post("/auth/search", {
-        fishassholes: this.state.searchValue
-      });
+      let str = this.state.searchValue.replace(/\s/g, "+");
+      window.location.href = "/departments/" + str;
     }
   }
 
   render() {
     return (
-      <div className="ui search" style={style.div2}>
-        <div className="ui icon input" style={{ ...style.div, ...style.div2 }}>
+      <div className="ui search" style={{}}>
+        <div className="ui icon input" style={style.input}>
           <input
             value={this.state.searchValue}
             className="prompt"
             type="text"
-            placeholder="Search by Keyword or item#"
+            placeholder="Search Pickle Grocery. . ."
             style={style.input}
             onChange={this.handleOnChange}
             onKeyPress={this.handleKeyPress}
           />
-          <i className="search icon" style={style.searchIcon} />
+          <i className="search icon" />
         </div>
       </div>
     );

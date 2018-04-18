@@ -5,11 +5,13 @@ import LoginModal from "./LoginModal";
 import { connect } from "react-redux";
 
 const style = {
-  btn: {
-    display: "inline-block"
-  },
+  btn: {},
   div: {
-    float: "right"
+    marginTop: "56px",
+    display: "inline-block",
+    float: "left",
+    marginLeft: "15px",
+    boxShadow: "0px 1px 1px #4d4d4d"
   }
 };
 
@@ -31,7 +33,11 @@ class LoginBtn extends Component {
 
       case false:
         return (
-          <button className="ui button" onClick={this.handleClick}>
+          <button
+            className="ui button"
+            onClick={this.handleClick}
+            style={style.btn}
+          >
             Login
           </button>
         );

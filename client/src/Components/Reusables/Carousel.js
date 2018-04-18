@@ -36,12 +36,11 @@ const style = {
 
 const settings = {
   draggable: false,
-  centerMode: true,
   dots: false,
   infinite: true,
   speed: 400,
-  slidesToShow: 6,
-  slidesToScroll: 1,
+  slidesToShow: 5,
+  slidesToScroll: 2,
   arrows: false
 };
 
@@ -56,9 +55,14 @@ class Carousel extends Component {
 
   async componentDidMount() {
     //QUERY DB:
-    const newestItems = await axios.post("/api/carousel-items", {
-      keywords: this.props.keywords
-    });
+    let newestItems = [];
+    if (this.props.keywords[0] === "new") {
+      newestItems = await axios.post("/api/new-items");
+    } else {
+      newestItems = await axios.post("/api/carousel-items", {
+        keywords: this.props.keywords
+      });
+    }
 
     this.setState({ items: newestItems.data });
   }
@@ -72,7 +76,7 @@ class Carousel extends Component {
   }
 
   _handleViewMore(e) {
-    window.location.href = "/test";
+    window.location.href = "/departments/" + this.props.keywords[0];
   }
 
   renderItems() {
@@ -81,12 +85,13 @@ class Carousel extends Component {
         return (
           <Item
             key={index}
-            fadeID={index}
+            fadeID={item._id}
             title={item.name}
             price={item.price}
             weight={item.weight}
             img={item.image}
             itemID={item._id}
+            carousel={true}
           />
         );
       });
@@ -95,8 +100,8 @@ class Carousel extends Component {
 
   render() {
     return (
-      <div class="ui centered grid">
-        <div class="eleven wide column">
+      <div class="ui centered grid" style={{ marginTop: "0px" }}>
+        <div class="column" style={{ width: "1200px" }}>
           <button
             onClick={e => this._handlePrevArrow(e)}
             className="circular ui icon button green"
@@ -105,7 +110,7 @@ class Carousel extends Component {
             <i className="icon angle left large" />
           </button>
 
-          <div class="ui segments ">
+          <div class="ui segments carousel">
             <div class="ui segment" style={style.headerSegment}>
               <h3 className="ui  header">
                 <div class="content">{this.props.title}</div>

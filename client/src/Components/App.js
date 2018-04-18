@@ -1,7 +1,7 @@
 /*eslint-disable no-unreachable, no-extra-semi, no-unused-vars, no-undef, unknown-require, forbiddenExportImport, semi, no-const-assign, check-tern-plugin*/
 
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
@@ -14,23 +14,17 @@ import FrontPage from "../Containers/FrontPage";
 //Supplier page to add items
 import SupplierPage from "../Containers/SupplierPage";
 
-//Account page AccountMenu side bar
-import AccountMenu from "./AccountPage/AccountMenu";
+//Account page Container
+import Account from "../Containers/Account";
 
-//Account info
-import AccountInfo from "./AccountPage/AccountInfo";
+import Departments from "./Departments/Departments.js";
 
-//Addresses
-import Addresses from "./AccountPage/Addresses";
+import DisplayItems from "./Departments/DisplayItems";
 
-//Order history
-import OrderHistory from "./AccountPage/OrderHistory";
+import YourItems from "./YourItems/YourItems";
 
-//Account page PromoCodes page
-import PromoCodes from "./AccountPage/PromoCodes";
-
-//Account page PromoCodes page
-import PaymentMethods from "./AccountPage/PaymentMethods";
+import Step from "./CheckoutPage/Step";
+import Header2 from "./CheckoutPage/Header2";
 
 class App extends Component {
   componentDidMount() {
@@ -44,18 +38,31 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <div>
-            <Header />
+            <Switch>
+              <Route path="/checkout" component={Header2} />
+              <Route path="/" component={Header} />
+            </Switch>
+
             <Route path="/" exact component={FrontPage} />
+
+            <Switch>
+              <Route
+                path="/checkout/success"
+                render={props => <Step paymentStatus={true} {...props} />}
+              />
+              <Route
+                path="/checkout"
+                render={props => <Step paymentStatus={false} {...props} />}
+              />
+            </Switch>
+
             <Route path="/supplier/add-item" component={SupplierPage} />
-            <Route path="/AccountMenu" component={AccountMenu} />
-            <Route path="/AccountMenu/Account" component={AccountInfo} />
-            <Route path="/AccountMenu/OrderHistory" component={OrderHistory} />
-            <Route path="/AccountMenu/Addresses" component={Addresses} />
-            <Route path="/AccountMenu/PromoCodes" component={PromoCodes} />
-            <Route
-              path="/AccountMenu/PaymentMethods"
-              component={PaymentMethods}
-            />
+            <Route path="/accountmenu/*" component={Account} />
+
+            <Route path="/departments/*" component={DisplayItems} />
+            <Route path="/departments" component={Departments} />
+
+            <Route path="/items" component={YourItems} />
           </div>
         </BrowserRouter>
       </div>
@@ -64,3 +71,6 @@ class App extends Component {
 }
 
 export default connect(null, actions)(App);
+
+//Department:
+// <Route path="/departments" component={Departments} />

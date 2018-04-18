@@ -8,15 +8,18 @@ import CartSideBar from "./CartSideBar.js";
 
 const style = {
   cart: {
-    float: "right"
+    marginTop: "56px",
+    display: "inline-block",
+    float: "left",
+    boxShadow: "0px 1px 1px #4d4d4d"
   },
   icon: {
     margin: "0px"
   },
   label: {
     position: "absolute",
-    top: "5.3%",
-    paddingLeft: "50px"
+    top: "16%",
+    paddingLeft: "52px"
   }
 };
 
@@ -53,7 +56,11 @@ class CartBtn extends Component {
 
   renderCartAmount() {
     if (this.state.itemAmount !== 0) {
-      return <a class="ui label">{this.state.itemAmount}</a>;
+      return (
+        <a class="ui label" style={{ boxShadow: "0px 1px 1px #4d4d4d" }}>
+          {this.state.itemAmount}
+        </a>
+      );
     }
 
     return;
@@ -62,11 +69,11 @@ class CartBtn extends Component {
   render() {
     return (
       <div
-        className="ui button green"
+        className="ui button orange"
         style={style.cart}
         onClick={this.handleClick}
       >
-        <div class="ui circular orange labels" style={style.label}>
+        <div class="ui circular olive labels" style={style.label}>
           {this.renderCartAmount()}
         </div>
         <i className="shopping cart icon" style={style.icon} /> Cart

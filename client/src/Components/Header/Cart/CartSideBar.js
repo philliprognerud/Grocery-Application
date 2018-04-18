@@ -99,13 +99,13 @@ class CartSideBar extends Component {
         $(`.row.${id}`).transition("fade left");
       }
 
-      console.log("before update item post");
       //Update the count in User schema cart
       await axios.post("/api/update-item-quantity", {
         quantity: itemCount,
         itemID: id
       });
 
+      //Retrieve cart information
       this.props.getUserCart();
 
       setTimeout(() => {
@@ -116,11 +116,9 @@ class CartSideBar extends Component {
   }
 
   async _handleDelete(id, e) {
-    //Stop additional even triggers
+    //Stop additional event triggers
 
-    // console.log(id);
-    // document.querySelector(`.trash.${id}`).className +=
-    //   " TESTINGANOTHERCLASSSSSS";
+    $(`.row.${id}`).transition("fade left");
 
     await axios.post("/api/update-item-quantity", {
       quantity: "0",
@@ -218,7 +216,7 @@ class CartSideBar extends Component {
       <div className="ui very wide right vertical menu sidebar">
         <div class="ui equal width center aligned padded grid">
           <div class="row" style={style.headerRow}>
-            <div class="olive column">
+            <div class="green column">
               <h2 class="ui inverted header" style={style.cartHeader}>
                 <div class="content">Personal Cart</div>
               </h2>
@@ -249,7 +247,14 @@ class CartSideBar extends Component {
             }}
           >
             <div class="sixteen wide column">
-              <button class="fluid ui orange button" style={style.checkoutBtn}>
+              <button
+                class="fluid ui orange button"
+                style={style.checkoutBtn}
+                onClick={e => {
+                  if (this.state.cart.length > 0)
+                    window.location.href = "/checkout";
+                }}
+              >
                 Checkout
                 <div class="ui huge label" style={style.totalLabel}>
                   ${this.renderTotalAmount()}

@@ -107,9 +107,13 @@ class SignupForm extends Component {
           password: this.state.password
         });
 
-        setTimeout(function() {
-          window.location.href = "/";
-        }, 1000);
+        if (this.props.checkout) {
+          this.props.clicked(true);
+        } else {
+          setTimeout(function() {
+            window.location.href = "/";
+          }, 1000);
+        }
       }
     } else {
       this.setState({
@@ -150,17 +154,6 @@ class SignupForm extends Component {
   render() {
     return (
       <div style={style.div}>
-        <div className="image centered content">
-          <div className="ui medium image" style={style.image}>
-            <img
-              src={require("../../../Images/pickle_logo.png")}
-              alt="Pickle Logo"
-              style={style.logo}
-              draggable="false"
-              dragstart="false"
-            />
-          </div>
-        </div>
         <h2 className="ui centered header">
           <div className="content">
             Registration!
@@ -210,7 +203,7 @@ class SignupForm extends Component {
             <label>Password</label>
             <input
               className="formInput"
-              type="text"
+              type="password"
               name="password"
               placeholder="Password (min 6 characters)"
               value={this.state.password}
@@ -218,8 +211,8 @@ class SignupForm extends Component {
             />
             <input
               className="formInput"
-              type="text"
-              name="passwordRepeat"
+              type="password"
+              name="password"
               placeholder="Repeat Password"
               style={{ marginTop: "5px" }}
               value={this.state.passwordRepeat}

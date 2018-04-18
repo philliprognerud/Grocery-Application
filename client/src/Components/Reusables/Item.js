@@ -31,10 +31,9 @@ const style = {
   cartDiv: {
     background: "linear-gradient(to top, white 40%, rgba(0,0,0,0))",
     position: "absolute",
-    top: "40%",
     float: "right",
     width: "160px",
-    height: "50px",
+    height: "65px",
     display: "none"
   }
 };
@@ -46,15 +45,26 @@ class Item extends Component {
     this.state = { guestModal: false };
   }
 
+  componentDidMount() {
+    let styles = [];
+    document.querySelectorAll(".ui.items").forEach(item => {
+      styles.push(item.getClientRects()[0].y);
+    });
+
+    document.querySelectorAll(".cart.display").forEach((item, index) => {
+      item.style.top = `${this.props.carousel ? 100 : styles[index] - 360}px`;
+    });
+  }
+
   _handleMouseEnter(e) {
-    $(`.${this.props.fadeID}`).transition({
+    $(`.cart.${this.props.fadeID}`).transition({
       animation: "fade up",
       duration: 250
     });
   }
 
   _handleMouseLeave(e) {
-    $(`.${this.props.fadeID}`).transition({
+    $(`.cart.${this.props.fadeID}`).transition({
       animation: "fade up",
       duration: 120
     });
@@ -87,15 +97,15 @@ class Item extends Component {
         }}
       >
         <div class="ui items" style={{ margin: "0px" }}>
-          <div class="image">
+          <div class="image" style={{ marginBottom: "15px" }}>
             <img
               src={this.props.img}
               href="/test"
-              alt="generic grocery"
+              alt={this.props.title}
               draggable="false"
               dragstart="false"
               onClick={e => this._handleImage(e)}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", height: "155px", width: "155px" }}
             />
           </div>
           <div class="item" style={{ margin: "0px", paddingLeft: "10px" }}>
@@ -111,7 +121,10 @@ class Item extends Component {
           </div>
         </div>
 
-        <div className={this.props.fadeID} style={style.cartDiv}>
+        <div
+          className={`cart display ${this.props.fadeID}`}
+          style={style.cartDiv}
+        >
           <AddToCart btnClick={e => this._handleAddToCart(e)} />
         </div>
       </div>

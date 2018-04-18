@@ -17,8 +17,30 @@ const guestSchema = new Schema({
   ],
   purchases: [
     {
-      itemIDs: [],
+      totalAmount: String,
+      item_list: [],
       date: { type: Date, default: Date.now }
+    }
+  ],
+  addrs: [
+    {
+      _id: false,
+      fullName: String,
+      address: String,
+      city: String,
+      state: String,
+      zip: String,
+      phone: String,
+      instructions: String
+    }
+  ],
+  cards: [
+    {
+      name: String,
+      cardNumber: String,
+      cvc: String,
+      expireMonth: String,
+      expireYear: String
     }
   ]
 });

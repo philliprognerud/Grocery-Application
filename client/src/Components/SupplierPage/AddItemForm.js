@@ -22,27 +22,36 @@ class AddItemForm extends Component {
   async _handleSubmit(e) {
     e.preventDefault();
 
-    let data = new FormData();
-    data.append("file", this.state.imagePreviewUrl);
-    data.append("name", this.state.file.name);
+    if (
+      this.state.itemName &&
+      this.state.itemPrice &&
+      this.state.itemWeight &&
+      this.state.stock &&
+      this.state.tags.length > 0 &&
+      this.state.file
+    ) {
+      let data = new FormData();
+      data.append("file", this.state.imagePreviewUrl);
+      data.append("name", this.state.file.name);
 
-    //TO-DO:
-    //Need to make sure input fields are filled out before this request
-    //Make sure user is logged in the display route
-    const newProduct = await axios.post("/api/supplier-add-item", {
-      image: this.state.imagePreviewUrl,
-      imageName: this.state.file.name,
-      itemName: this.state.itemName,
-      itemPrice: this.state.itemPrice,
-      itemWeight: this.state.itemWeight,
-      stock: this.state.stock,
-      tags: this.state.tags,
-      id: this.props.auth._id
-    });
+      //TO-DO:
+      //Need to make sure input fields are filled out before this request
+      //Make sure user is logged in the display route
+      const newProduct = await axios.post("/api/supplier-add-item", {
+        image: this.state.imagePreviewUrl,
+        imageName: this.state.file.name,
+        itemName: this.state.itemName,
+        itemPrice: this.state.itemPrice,
+        itemWeight: this.state.itemWeight,
+        stock: this.state.stock,
+        tags: this.state.tags,
+        id: this.props.auth._id
+      });
 
-    console.log(newProduct);
+      console.log(newProduct);
 
-    window.location.href = "/supplier/add-item";
+      window.location.href = "/supplier/add-item";
+    }
   }
 
   _handleImageChange(e) {
@@ -68,15 +77,19 @@ class AddItemForm extends Component {
   }
 
   _handlePriceChange(e) {
-    this.setState({
-      itemPrice: e.target.value
-    });
+    if (/^[0-9.]*$/.test(e.target.value)) {
+      this.setState({
+        itemPrice: e.target.value
+      });
+    }
   }
 
   _handleWeightChange(e) {
-    this.setState({
-      itemWeight: e.target.value
-    });
+    if (/^[0-9.]*$/.test(e.target.value)) {
+      this.setState({
+        itemWeight: e.target.value
+      });
+    }
   }
 
   _handleStockChange(e) {
@@ -118,7 +131,7 @@ class AddItemForm extends Component {
                 <label>Item Name</label>
                 <input
                   type="text"
-                  placeholder="ex: Trader Joe's Apples"
+                  placeholder="Trader Joe's Apples"
                   value={this.state.itemName}
                   onChange={e => this._handleNameChange(e)}
                 />
@@ -128,17 +141,17 @@ class AddItemForm extends Component {
                 <label>Item Price</label>
                 <input
                   type="text"
-                  placeholder="ex: $0.00"
+                  placeholder="0.00"
                   value={this.state.itemPrice}
                   onChange={e => this._handlePriceChange(e)}
                 />
               </div>
 
               <div className="field">
-                <label>Item Weight</label>
+                <label>Item Weight (in ounces, 16ounce = 1.0lb)</label>
                 <input
                   type="text"
-                  placeholder="ex: 16.0 oz"
+                  placeholder="16.0"
                   value={this.state.itemWeight}
                   onChange={e => this._handleWeightChange(e)}
                 />
@@ -155,10 +168,10 @@ class AddItemForm extends Component {
               </div>
 
               <div className="field">
-                <label>Tags</label>
+                <label>Tags (Please tag your items seperated by commas)</label>
                 <input
                   type="text"
-                  placeholder="Please tag your items seperated by commas"
+                  placeholder="fruit, strawberry, organic, red, berry"
                   value={this.state.tags}
                   onChange={e => this._handleTagChange(e)}
                 />

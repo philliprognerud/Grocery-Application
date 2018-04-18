@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 const style = {
   div: {
     position: "absolute",
-    marginTop: "5px",
+    marginTop: "15px",
     left: "45%",
     width: "100%"
   }

@@ -6,12 +6,7 @@ import AccountDropDown from "./LoginRegister/AccountDropDown";
 import CartBtn from "./Cart/CartBtn";
 
 const style = {
-  container: {
-    float: "right",
-    marginTop: "57px",
-    marginRight: "16%",
-    width: "220px"
-  }
+  container: {}
 };
 
 class LoginCartContainer extends Component {

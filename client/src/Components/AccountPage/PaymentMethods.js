@@ -7,9 +7,8 @@ const style = {
   button: {
     marginTop: "10px",
     marginLeft: "30px",
-    width: "8%",
-    height: "80px",
-    borderRadius: "10%"
+    width: "120px",
+    height: "80px"
   },
   icon: {
     marginLeft: "3px"
@@ -17,7 +16,7 @@ const style = {
   font: {
     fontSize: "12px",
     marginTop: "0px",
-    marginLeft: "32%"
+    marginLeft: "65px"
   }
 };
 

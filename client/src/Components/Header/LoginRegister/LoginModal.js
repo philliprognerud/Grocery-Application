@@ -7,6 +7,13 @@ const style = {
   modal: {
     padding: "25px",
     width: "400px"
+  },
+  logo: {
+    width: "100px",
+    margin: "auto"
+  },
+  image: {
+    width: "100%"
   }
 };
 
@@ -42,7 +49,9 @@ class LoginModal extends Component {
 
   renderSignupForm() {
     return this.state.signup ? (
-      <SignupForm onLoginClick={this.loginCallBack} />
+      <div>
+        <SignupForm onLoginClick={this.loginCallBack} />
+      </div>
     ) : null;
   }
 
@@ -50,6 +59,17 @@ class LoginModal extends Component {
     return (
       <div className="ui modal" style={style.modal}>
         <i className="close icon" />
+        <div className="image centered content">
+          <div className="ui medium image" style={style.image}>
+            <img
+              src={require("../../../Images/pickle_logo.png")}
+              alt="Pickle Logo"
+              style={style.logo}
+              draggable="false"
+              dragstart="false"
+            />
+          </div>
+        </div>
         {this.renderLoginForm()}
         {this.renderSignupForm()}
       </div>

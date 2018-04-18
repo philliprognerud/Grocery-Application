@@ -63,7 +63,6 @@ class LoginForm extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    console.log(this.state.username, this.state.password);
 
     const userLogin = await axios.post("/auth/login", {
       username: this.state.username,
@@ -76,13 +75,19 @@ class LoginForm extends Component {
     });
 
     if (!this.state.failureLogin) {
-      setTimeout(function() {
-        window.location.href = "/";
-      }, 1000);
+      if (this.props.checkout) {
+        this.props.clicked(true);
+      } else {
+        setTimeout(function() {
+          window.location.href = "/";
+        }, 1000);
+      }
     }
   }
 
   handleSocialAuth(e) {
+    //Merge
+
     if (e.target.name === "facebook") {
       window.location.href = "/auth/facebook";
     } else if (e.target.name === "google") {
@@ -101,17 +106,6 @@ class LoginForm extends Component {
   render() {
     return (
       <div style={style.div}>
-        <div className="image centered content">
-          <div className="ui medium image" style={style.image}>
-            <img
-              src={require("../../../Images/pickle_logo.png")}
-              alt="Pickle Logo"
-              style={style.logo}
-              draggable="false"
-              dragstart="false"
-            />
-          </div>
-        </div>
         <h2 className="ui centered header">
           <div className="content">
             Welcome Back!
@@ -141,21 +135,23 @@ class LoginForm extends Component {
 
         <form className="ui form" onSubmit={this.handleSubmit}>
           <div className="field">
+            <label>Username</label>
             <input
               className="formInput"
               type="text"
               name="username"
-              placeholder="Email address or username"
+              placeholder="Enter username"
               value={this.state.username}
               onChange={this.handleUserChange}
             />
           </div>
           <div className="field">
+            <label>Password</label>
             <input
               className="formInput"
               type="text"
               name="password"
-              placeholder="Password (min 6 characters)"
+              placeholder="Enter password"
               value={this.state.password}
               onChange={this.handlePwChange}
             />
@@ -199,19 +195,18 @@ class LoginForm extends Component {
                 Sign up
               </a>
             </div>
-            <div className="sub header">
-              Forgot your password?
-              <a onClick={this.handleReset} style={style.a}>
-                Reset it
-              </a>
-            </div>
           </div>
         </h2>
-
-        <a href="/auth/logout">Log Out</a>
       </div>
     );
   }
 }
 
 export default LoginForm;
+
+// <div className="sub header">
+//               Forgot your password?
+//               <a onClick={this.handleReset} style={style.a}>
+//                 Reset it
+//               </a>
+//             </div>

@@ -30,7 +30,8 @@ const userSchema = new Schema({
   ],
   purchases: [
     {
-      itemIDs: [],
+      totalAmount: String,
+      item_list: [],
       date: { type: Date, default: Date.now }
     }
   ],
@@ -38,6 +39,27 @@ const userSchema = new Schema({
     {
       type: mongoose.Schema.ObjectId,
       ref: "products"
+    }
+  ],
+  addrs: [
+    {
+      _id: false,
+      fullName: String,
+      address: String,
+      city: String,
+      state: String,
+      zip: String,
+      phone: String,
+      instructions: String
+    }
+  ],
+  cards: [
+    {
+      name: String,
+      cardNumber: String,
+      cvc: String,
+      expireMonth: String,
+      expireYear: String
     }
   ]
 });

@@ -3,9 +3,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+const Account = "/accountmenu/account";
+const OrderHistory = "/accountmenu/orderhistory/";
+
 const style = {
   div: {
-    float: "right"
+    display: "inline-block",
+    float: "left",
+    marginTop: "56px",
+    boxShadow: "0px 1px 1px #4d4d4d"
   }
 };
 
@@ -42,11 +48,11 @@ class AccountDropDown extends Component {
 
               <div className="item">
                 <i className="user icon" />
-                Settings
+                <a href={Account}>Settings</a>
               </div>
               <div className="item">
                 <i className="list alternate outline icon" />
-                Orders
+                <a href={OrderHistory}>Orders</a>
               </div>
               <div className="divider" />
               <div className="item">

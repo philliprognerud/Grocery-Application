@@ -5,35 +5,27 @@ import React, { Component } from "react";
 const style = {
   logo: {
     width: "50px",
-    display: "inline-block",
-    marginTop: "25px"
+    display: "inline-block"
   },
   header: {
     display: "inline-block"
   },
-  div: {
-    float: "left",
-    marginLeft: "16%"
-  }
+  div: {}
 };
 
 class Logo extends Component {
   render() {
     return (
-      <div>
-        <div style={style.div}>
-          <a href="/">
-            <img
-              style={style.logo}
-              src={require("../../Images/pickle_logo.png")}
-              alt="Pickle Logo"
-            />
-            <h1 style={style.header} className="ui header">
-              Pickle
-            </h1>
-          </a>
-        </div>
-      </div>
+      <a href="/" style={{ float: "right" }}>
+        <img
+          style={style.logo}
+          src={require("../../Images/pickle_logo.png")}
+          alt="Pickle Logo"
+        />
+        <h1 style={style.header} className="ui header">
+          Pickle
+        </h1>
+      </a>
     );
   }
 }
