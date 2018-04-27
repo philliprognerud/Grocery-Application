@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const User = mongoose.model("users");
 const Product = mongoose.model("products");
 const Guest = mongoose.model("guests");
+const oktaClient = require("./lib/oktaClient");
 
 module.exports = app => {
   //Adds item to User cart registered or guest
@@ -458,5 +459,11 @@ module.exports = app => {
         res.send({ purchases: doc.purchases });
       });
     }
+  });
+
+  app.post("/api/check-session-id", async function(req, res) {
+    let sessionRes = await oktaClient.getSession(req.body.sessionId);
+
+    console.log(sessionRes);
   });
 };

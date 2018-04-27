@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <div>
       <div
-        class="ui equal width center aligned grid"
+        className="ui equal width center aligned grid"
         style={{
           backgroundImage: `url(${background})`,
           height: "300px"

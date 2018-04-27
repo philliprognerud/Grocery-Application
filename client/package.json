@@ -11,6 +11,7 @@
     }
   },
   "dependencies": {
+    "@okta/okta-auth-js": "^1.16.0",
     "axios": "^0.18.0",
     "form-data": "^2.3.2",
     "jquery": "^3.3.1",

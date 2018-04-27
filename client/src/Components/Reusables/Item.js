@@ -45,6 +45,12 @@ class Item extends Component {
     this.state = { guestModal: false };
   }
 
+  componentDidUpdate() {
+    if ($(`.cart.${this.props.fadeID}`).css("display") === "block") {
+      $(`.cart.${this.props.fadeID}`).css({ display: "none" });
+    }
+  }
+
   componentDidMount() {
     let styles = [];
     document.querySelectorAll(".ui.items").forEach(item => {
@@ -57,6 +63,10 @@ class Item extends Component {
   }
 
   _handleMouseEnter(e) {
+    if ($(`.cart.${this.props.fadeID}`).css("display") === "block") {
+      $(`.cart.${this.props.fadeID}`).css({ display: "none" });
+    }
+
     $(`.cart.${this.props.fadeID}`).transition({
       animation: "fade up",
       duration: 250
@@ -110,7 +120,29 @@ class Item extends Component {
           </div>
           <div class="item" style={{ margin: "0px", paddingLeft: "10px" }}>
             <div class="content">
-              <a class="header">${parseFloat(this.props.price).toFixed(2)}</a>
+              <a
+                class="header"
+                style={{
+                  textDecoration: this.props.sale ? "line-through" : "",
+                  color: this.props.sale ? "red" : "black",
+                  fontSize: "15px"
+                }}
+              >
+                ${parseFloat(this.props.price).toFixed(2)}
+              </a>
+
+              {this.props.sale ? (
+                <a
+                  class="header"
+                  style={{
+                    float: "right",
+                    color: "#21ba45"
+                  }}
+                >
+                  ${parseFloat(this.props.price / 2).toFixed(2)}
+                </a>
+              ) : null}
+
               <div class="meta">
                 <span>{this.props.title}</span>
               </div>

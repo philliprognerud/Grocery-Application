@@ -136,6 +136,9 @@ class CartSideBar extends Component {
   renderTotalAmount() {
     return this.state.cart
       .map((item, index) => {
+        if (item.product.tags.includes("sale")) {
+          item.product.price = (item.product.price / 2).toFixed(2);
+        }
         return parseFloat(item.product.price) * parseFloat(item.quantity);
       })
       .reduce((a, b) => a + b, 0)
@@ -193,7 +196,9 @@ class CartSideBar extends Component {
                 class="three wide column"
                 style={{ marginTop: "15px", padding: "0px" }}
               >
-                ${item.product.price}
+                ${item.product.tags.includes("sale")
+                  ? (item.product.price / 2).toFixed(2)
+                  : item.product.price}
               </div>
               <div
                 class="two wide column"

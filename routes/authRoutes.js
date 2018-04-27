@@ -94,6 +94,10 @@ module.exports = app => {
   app.post("/auth/checkout-cc", function(req, res) {
     let totalAmount = 0;
     let paypalItems = req.body.cart.map(item => {
+      if (item.product.tags.includes("sale")) {
+        item.product.price = (item.product.price / 2).toFixed(2);
+      }
+
       totalAmount +=
         (item.product.price * req.body.discount).toFixed(2) * item.quantity;
 
@@ -148,6 +152,9 @@ module.exports = app => {
     //Re-map cart items to fit PayPals parameters
     let totalAmount = 0;
     let paypalItems = req.body.cart.map(item => {
+      if (item.product.tags.includes("sale")) {
+        item.product.price = (item.product.price * 1).toFixed(2);
+      }
       totalAmount +=
         (item.product.price * req.body.discount).toFixed(2) * item.quantity;
       return {

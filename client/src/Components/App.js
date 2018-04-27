@@ -56,7 +56,10 @@ class App extends Component {
               />
             </Switch>
 
-            <Route path="/supplier/add-item" component={SupplierPage} />
+            <Route
+              path="/supplier/add-item/:sessionId"
+              component={SupplierPage}
+            />
             <Route path="/accountmenu/*" component={Account} />
 
             <Route path="/departments/*" component={DisplayItems} />

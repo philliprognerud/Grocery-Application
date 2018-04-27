@@ -19,6 +19,10 @@ class AddItemForm extends Component {
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    console.log(this.props.location.state);
+  }
+
   async _handleSubmit(e) {
     e.preventDefault();
 

@@ -21,6 +21,9 @@ class ConfirmOrder extends Component {
     if (this.props.cart && !_.isEqual(this.props.cart, this.state.cart)) {
       let total = this.props.cart
         .map((item, index) => {
+          if (item.product.tags.includes("sale")) {
+            item.product.price = (item.product.price / 2).toFixed(2);
+          }
           return parseFloat(item.product.price) * parseFloat(item.quantity);
         })
         .reduce((a, b) => a + b, 0)
